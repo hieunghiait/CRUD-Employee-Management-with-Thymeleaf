@@ -1,14 +1,10 @@
 package com.example.crudwiththymeleaf.controller;
 
-import com.example.crudwiththymeleaf.model.Employee;
 import com.example.crudwiththymeleaf.service.EmployeeService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmployeeController {
@@ -19,31 +15,5 @@ public class EmployeeController {
     public String viewHomePage(Model model){
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
         return "index";
-    }
-
-    /**
-     * Hiển thị danh sách các nhân viên
-     * @param model
-     * @return về view form tạo nhân viên
-     */
-
-    @GetMapping("/showNewEmployeeForm")
-    public String showEmployeeForm(Model model){
-        //create model attribute to bind form data
-        Employee employee = new Employee();
-        model.addAttribute("employee", employee);
-        return "new_employee";
-    }
-
-    /**
-     * Lưu thông tin nhân viên
-     * @param employee
-     * @return chuyển hướng về trang chính
-     */
-    @PostMapping("/saveEmployee")
-    public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee){
-        //save employee into database
-        employeeService.saveEmployee(employee);
-        return "redirect:/";
     }
 }
