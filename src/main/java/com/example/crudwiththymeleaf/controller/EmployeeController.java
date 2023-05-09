@@ -62,4 +62,16 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "update_employee";
     }
+
+    /**
+     * Delete employee by id
+     * @param id
+     * @param model
+     * @return view HomePage
+     */
+    @GetMapping("/deleteEmployee/{id}")
+    public String showFormDelete(@PathVariable (value = "id") long id, Model model){
+        this.employeeService.deleteEmployeeById(id);
+        return "redirect:/";
+    }
 }
