@@ -36,14 +36,12 @@ public class EmployeeServiceImpl  implements  EmployeeService{
      */
     @Override
     public Employee getEmployeeById(long id) {
-        Optional<Employee> optional = employeeRepository.findById(id);
+        Optional < Employee > optional = employeeRepository.findById(id);
         Employee employee = null;
-        if(optional.isPresent()){
-            //lấy giá trị của đối tượng optional gắn vào employee
+        if (optional.isPresent()) {
             employee = optional.get();
-        }else
-        {
-            throw new RuntimeException("Employee not found for id: "  + id);
+        } else {
+            throw new RuntimeException(" Employee not found for id :: " + id);
         }
         return employee;
     }
@@ -54,19 +52,12 @@ public class EmployeeServiceImpl  implements  EmployeeService{
 
     }
 
-    /**
-     * Pagination and Sorting
-     * @param pageNo
-     * @param pageSize
-     * @param sortField
-     * @param sortDirection
-     * @return
-     */
     @Override
-    public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+    public Page < Employee > findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.employeeRepository.findAll(pageable);
     }
 

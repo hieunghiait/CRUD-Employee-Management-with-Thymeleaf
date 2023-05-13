@@ -2,7 +2,6 @@ package com.example.crudwiththymeleaf.controller;
 
 import com.example.crudwiththymeleaf.model.Employee;
 import com.example.crudwiththymeleaf.service.EmployeeService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    // display list of employees
     @GetMapping("/")
     public String viewHomePage(Model model) {
         return findPaginated(1, "firstName", "asc", model);
@@ -30,6 +28,11 @@ public class EmployeeController {
         return "new_employee";
     }
 
+    /**
+     * Kỹ thuật Java Bean
+     * @param employee
+     * @return
+     */
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         // save employee to database
@@ -38,7 +41,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+    public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
 
         // get employee from the service
         Employee employee = employeeService.getEmployeeById(id);
