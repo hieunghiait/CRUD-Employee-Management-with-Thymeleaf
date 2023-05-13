@@ -13,13 +13,24 @@ import java.util.List;
 @Controller
 public class EmployeeController {
     @Autowired
+    //DI
     private EmployeeService employeeService;
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String viewHomePage(Model model) {
         return findPaginated(1, "firstName", "asc", model);
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/showNewEmployeeForm")
     public String showNewEmployeeForm(Model model) {
         // create model attribute to bind form data
@@ -45,7 +56,6 @@ public class EmployeeController {
 
         // get employee from the service
         Employee employee = employeeService.getEmployeeById(id);
-
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employee);
         return "update_employee";
